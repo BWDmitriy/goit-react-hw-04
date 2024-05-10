@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import './App.css';
-import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
-import Searchbox from "../Searchbox/Searchbox";
+
 
 function App() {
  const [searchQuery, setSearchQuery] = useState('');
