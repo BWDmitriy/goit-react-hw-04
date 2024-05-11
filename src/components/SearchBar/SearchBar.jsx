@@ -1,16 +1,31 @@
-export default function SearchBar() {
+import { useState } from "react";
 
- return (
-   <header>
-  <form>
-    <input
-      type="text"
-      autoComplete="off"
-      autoFocus
-      placeholder="Search images and photos"
-    />
-    <button type="submit">Search</button>
-  </form>
-</header>
- );
+export default function SearchBar({ onSubmit, setQuery }) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent form from submitting normally
+    setQuery(inputValue); // Update the query state in App component
+    onSubmit(); // Trigger the search
+  };
+
+  return (
+    <header>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Search</button>
+      </form>
+    </header>
+  );
 }
