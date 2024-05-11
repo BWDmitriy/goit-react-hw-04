@@ -3,14 +3,15 @@ import { Audio } from 'react-loader-spinner';
 export default function Loader({loaderClass}) {
     return (
       <div className={loaderClass}>
-    <Audio
+<Oval
+  visible={true}
   height="80"
   width="80"
-  radius="9"
-  color="green"
-  ariaLabel="loading"
-  wrapperStyle
-  wrapperClass
-/> </div>
+  color="#4fa94d"
+  ariaLabel="oval-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  />
+</div>
   );
 }
