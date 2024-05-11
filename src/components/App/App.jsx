@@ -10,7 +10,7 @@ import ImageModal from '../ImageModal/ImageModal';
 import Modal from 'react-modal';
 
 function App() {
-  const [articles, setArticles] = useState([]);
+  const [images, setImages] = useState([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1); // State to keep track of the current page
   const [loaderClass, setLoaderClass] = useState("visually-hidden");
@@ -18,37 +18,53 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
    
-  const fetchArticles = useCallback(async (page = 1) => {
-    if (query) {
-      try {
-        setLoaderClass("");
-        const response = await axios.get(
-          `https://api.unsplash.com/search/photos?client_id=WWP0ZkMHW4a1CGgA-GBI0FrCCywjnB3L6d04IFuYIlk&query=${query}&page=${page}`
-        );
-        if (response.data && response.data.results) {
-          setArticles(prevArticles => [...prevArticles,...response.data.results]);
-          setLoaderClass("visually-hidden");
-          setErrorMsgClass("visually-hidden");
+  // App.jsx
+
+// App.jsx
+
+const fetchImages = useCallback(async (page = 1) => {
+  if (query) {
+    try {
+      setLoaderClass("");
+      const response = await axios.get(
+        `https://api.unsplash.com/search/photos?client_id=WWP0ZkMHW4a1CGgA-GBI0FrCCywjnB3L6d04IFuYIlk&query=${query}&page=${page}`
+      );
+      if (response.data && response.data.results) {
+        const newImages = response.data.results;
+        if (page === 1) {
+          setImages(newImages);
         } else {
-          console.error('API response does not contain results data');
-          setArticles([]);
+          setImages(prevImages => {
+            const existingIds = new Set(prevImages.map(img => img.id));
+            const filteredNewImages = newImages.filter(img => !existingIds.has(img.id));
+            return [...prevImages, ...filteredNewImages];
+          });
         }
-      } catch (error) {
-        console.error('Error fetching articles:', error);
-        setArticles([]);
-        setErrorMsgClass("");
+        setLoaderClass("visually-hidden");
+        setErrorMsgClass("visually-hidden");
+      } else {
+        console.error('API response does not contain results data');
+        setImages([]);
       }
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      setImages([]);
+      setErrorMsgClass("");
     }
-  }, [query]);
+  }
+}, [query]);
 
   useEffect(() => {
-    fetchArticles();
-  }, [fetchArticles]);
+    fetchImages();
+  }, [fetchImages]);
 
-  const loadMore = () => {
-    setPage(prevPage => prevPage + 1);
-    fetchArticles(page + 1);
-  };
+const loadMore = () => {
+  setPage(prevPage => {
+    const newPage = prevPage + 1;
+    fetchImages(newPage);
+    return newPage;
+  });
+};
 const handleImageClick = (image) => {
   setSelectedImage(image);
   setIsModalOpen(true);
@@ -58,11 +74,15 @@ const handleImageClick = (image) => {
     setIsModalOpen(false);
    };
    
-
+const resetImages = () => {
+  setImages([]);
+  setPage(1); // Reset the page number as well
+  };
+  
   return (
     <div>
-      <SearchBar onSubmit={fetchArticles} setQuery={setQuery} />
-      {articles.length > 0 && <ImageGallery articles={articles} onImageClick={handleImageClick} />}
+      <SearchBar onSubmit={() => fetchImages(1)} setQuery={setQuery} resetImages={resetImages} />
+      {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
       {isModalOpen && selectedImage && (
         <ImageModal
           isOpen={isModalOpen}
@@ -70,7 +90,7 @@ const handleImageClick = (image) => {
           onRequestClose={closeModal}
         />
       )}
-      {articles.length > 0 && <LoadMoreBtn loadMore={loadMore} />}
+      {images.length > 0 && <LoadMoreBtn loadMore={loadMore} />}
       <ErrorMessage errorMsgClass={errorMsgClass} />
       <Loader loaderClass={loaderClass} />
     </div>
