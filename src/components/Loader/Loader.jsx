@@ -1,4 +1,4 @@
-import { Audio } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 
 export default function Loader({loaderClass}) {
     return (
