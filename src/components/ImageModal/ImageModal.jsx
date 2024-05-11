@@ -13,7 +13,7 @@ function ImageModal({ isOpen, selectedImage, onRequestClose }) {
       overlayClassName="overlay"
     >
       <img src={selectedImage.urls.full} alt={selectedImage.description || 'Selected image'} />
-      <button onClick={onRequestClose}>Close</button>
+      {/* <button onClick={onRequestClose}>Close</button> */}
     </Modal>
   );
 }

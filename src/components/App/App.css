@@ -121,3 +121,34 @@ h1 {
   bottom: 0;
   background: rgba(0, 0, 0, 0.75);
 }
+
+.search-box {
+    background-color: #007bff; 
+    padding: 10px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    border-radius: 5px;
+    width: 100%; 
+    flex-direction: row-reverse;
+}
+
+.search-box input {
+    width: 25%; 
+    padding: 10px;
+    margin-right: 10px; 
+    border: none;
+    border-radius: 5px;
+}
+
+.search-box button {
+    background-color: #0056b3; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

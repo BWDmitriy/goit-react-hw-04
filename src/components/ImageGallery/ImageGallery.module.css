@@ -1,0 +1,24 @@
+.imageGallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.imageGallery li {
+    flex: 1 1 calc(25% - 10px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; 
+    overflow: hidden; 
+}
+
+.imageGallery img {
+    width: 100%; 
+    height: auto; 
+    min-height: 100%; 
+    object-fit: cover; 
+}

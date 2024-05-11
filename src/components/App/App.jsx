@@ -49,10 +49,10 @@ function App() {
     setPage(prevPage => prevPage + 1);
     fetchArticles(page + 1);
   };
- const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setIsModalOpen(true);
-  };
+const handleImageClick = (image) => {
+  setSelectedImage(image);
+  setIsModalOpen(true);
+};
 
   const closeModal = () => {
     setIsModalOpen(false);

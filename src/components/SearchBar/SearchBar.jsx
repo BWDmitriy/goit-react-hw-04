@@ -14,18 +14,18 @@ export default function SearchBar({ onSubmit, setQuery }) {
   };
 
   return (
-    <header>
-      <form onSubmit={handleSubmit}>
+   <header>
+    <form onSubmit={handleSubmit} className="search-box">
         <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          value={inputValue}
-          onChange={handleInputChange}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            value={inputValue}
+            onChange={handleInputChange}
         />
-        <button type="submit">Search</button>
-      </form>
-    </header>
+        <button type="submit">🔍</button> 
+    </form>
+</header>
   );
 }

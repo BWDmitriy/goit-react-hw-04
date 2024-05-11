@@ -1,8 +1,10 @@
+import styles from "./LoadMoreBtn.module.css";
+
 export default function LoadMoreBtn({ loadMore }) {
   return (
-    <button onClick={loadMore} className="load-more-btn">
-          Load more
-        </button>
+    <button className={styles.loadMoreBtn} onClick={loadMore}>
+    Load More
+</button>
   );
 }
 
