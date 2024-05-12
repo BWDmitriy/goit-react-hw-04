@@ -1,5 +1,3 @@
-// ImageGallery.jsx
-
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
 
