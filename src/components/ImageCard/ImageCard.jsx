@@ -1,8 +1,8 @@
 export default function ImageCard({ imageUrl, altText, onClick }) {
   return (
-    <li onClick={onClick}>
+    <li>
       <div>
-        <img src={imageUrl} alt={altText} />
+        <img src={imageUrl} alt={altText} onClick={onClick} />
       </div>
     </li>
   );

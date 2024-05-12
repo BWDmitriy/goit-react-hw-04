@@ -1,20 +1,22 @@
 import { useState } from "react";
 
-export default function SearchBar({ onSubmit, setQuery, resetImages }) {
+export default function SearchBar({ onSubmit }) {
   const [inputValue, setInputValue] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
+    setIsError(false); // Clear error state when input changes
   };
 
-  // SearchBar.jsx
-
-const handleSubmit = (event) => {
-  event.preventDefault();
-  resetImages(); // Reset images before setting new query
-  setQuery(inputValue);
-  onSubmit(1); // Call fetchImages with page 1
-};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (inputValue.trim() === '') {
+      setIsError(true); // Set error state if input is empty
+      return; // Prevent form submission
+    }
+    onSubmit(inputValue); // Pass inputValue to onSubmit
+  };
 
   return (
     <header>
@@ -27,6 +29,7 @@ const handleSubmit = (event) => {
           value={inputValue}
           onChange={handleInputChange}
         />
+        {isError && <p>Please enter a search term.</p>}
         <button type="submit">🔍</button>
       </form>
     </header>
